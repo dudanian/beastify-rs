@@ -1,0 +1,31 @@
+[package]
+authors = ["Andrew Duda <dudanian@gmail.com>"]
+categories = ["wasm"]
+description = "Your second extension in Rust"
+edition = "2018"
+name = "beastify-rs"
+readme = "README.md"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# The `wasm-bindgen` crate provides the bare minimum functionality needed
+# to interact with JavaScript.
+js-sys = "0.3.45"
+wasm-bindgen = "0.2.68"
+wasm-bindgen-futures = "0.4.18"
+
+# The `web-sys` crate allows you to interact with the various browser APIs,
+# like the DOM.
+[dependencies.web-sys]
+features = ["console", "MouseEvent", "Window", "Document", "EventTarget", "Element", "DomTokenList"]
+version = "0.3.45"
+
+# The `console_error_panic_hook` crate provides better debugging of panics by
+# logging them with `console.error`. This is great for development, but requires
+# all the `std::fmt` and `std::panicking` infrastructure, so it's only enabled
+# in debug mode.
+[target."cfg(debug_assertions)".dependencies]
+console_error_panic_hook = "0.1.6"
