@@ -1,0 +1,6 @@
+[book]
+authors = ["Andrew Duda"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Web Extensions with Rust"
