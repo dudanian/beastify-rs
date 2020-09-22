@@ -3,7 +3,7 @@
   "name": "beastify-rs",
   "version": "0.1.0",
   "scripts": {
-    "devwatch": "webpack --mode development --watch",
+    "devwatch": "rimraf dist pkg && webpack --mode development --watch",
     "build": "rimraf dist pkg && webpack --mode production",
     "debug": "web-ext run -s dist/"
   },
