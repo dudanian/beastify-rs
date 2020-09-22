@@ -77,10 +77,13 @@ fn listen_for_clicks() {
         });
     }) as Box<dyn FnMut(MouseEvent)>);
 
-    match document.add_event_listener_with_callback("click", cb.into_js_value().as_ref().unchecked_ref()) {
+    match document.add_event_listener_with_callback("click", cb.as_ref().unchecked_ref()) {
         Ok(()) => (),
         Err(err) => report_error(err),
     }
+
+    // note that this leaks memory
+    cb.forget();
 }
 
 fn beast_name_to_url(beast_name: &str) -> JsValue {
