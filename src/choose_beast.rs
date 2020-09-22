@@ -77,9 +77,10 @@ fn listen_for_clicks() {
         });
     }) as Box<dyn FnMut(MouseEvent)>);
 
-    document
-        .add_event_listener_with_callback("click", cb.into_js_value().as_ref().unchecked_ref())
-        .unwrap();
+    match document.add_event_listener_with_callback("click", cb.into_js_value().as_ref().unchecked_ref()) {
+        Ok(()) => (),
+        Err(err) => report_error(err),
+    }
 }
 
 fn beast_name_to_url(beast_name: &str) -> JsValue {
@@ -94,8 +95,7 @@ fn beast_name_to_url(beast_name: &str) -> JsValue {
 }
 
 fn beastify(tabs: Array, text_content: String) {
-    let tab = tabs.get(0);
-    let tab: Tab = tab.unchecked_into();
+    let tab: Tab = tabs.get(0).unchecked_into();
 
     if let Some(id) = tab.id() {
         HIDE_PAGE.with(|hide_page| {
@@ -119,9 +119,12 @@ fn beastify(tabs: Array, text_content: String) {
                             }
                             .as_ref(),
                         );
-                        JsFuture::from(p).await.unwrap();
+                        match JsFuture::from(p).await {
+                            Ok(_) => (),
+                            Err(err) => report_error(err),
+                        }
                     }
-                    _ => (),
+                    Err(err) => report_error(err),
                 }
             });
         });
@@ -151,9 +154,12 @@ fn reset(tabs: Array) {
                             }
                             .as_ref(),
                         );
-                        JsFuture::from(p).await.unwrap();
+                        match JsFuture::from(p).await {
+                            Ok(_) => (),
+                            Err(err) => report_error(err),
+                        }
                     }
-                    _ => (),
+                    Err(err) => report_error(err),
                 }
             });
         });
