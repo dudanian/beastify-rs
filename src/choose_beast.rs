@@ -87,7 +87,7 @@ fn beast_name_to_url(beast_name: &str) -> JsValue {
         "Frog" => "icons/beasts/frog.jpg",
         "Snake" => "icons/beasts/snake.jpg",
         "Turtle" => "icons/beasts/turtle.jpg",
-        _ => "none?",
+        _ => return JsValue::null(),
     };
 
     browser::runtime::get_url(path)
