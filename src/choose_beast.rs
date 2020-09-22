@@ -182,7 +182,7 @@ fn report_execute_script_error(error: JsValue) {
 pub fn execute() {
     spawn_local(async {
         let p = browser::tabs::execute_script(&object! {
-            "file" => "/content_scripts/beastify.js"
+            "file" => "/beastify.js"
         });
         match JsFuture::from(p).await {
             Ok(_) => listen_for_clicks(),
